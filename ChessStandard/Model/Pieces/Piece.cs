@@ -9,7 +9,7 @@ namespace ChessStandard.Model.Pieces
     {
         public int Id { get; }
         public Faction Faction { get; }
-        public Square Square { get; private set; }
+        public Square Square { get; set; }
         public bool Captured { get; set; }
         public bool Moved { get; set; }
         public BoardSide Side { get; }
@@ -70,6 +70,18 @@ namespace ChessStandard.Model.Pieces
 
             return check;
         }
-    }
 
+        public virtual void UndoMove(Move move, bool moved)
+        {
+            Square = move.SquareFrom;
+
+            if (move.Capture)
+            {
+                var capturedPiece = move.CapturedPiece;
+                capturedPiece.Captured = false;
+            }
+
+            Moved = moved;
+        }
+    }
 }

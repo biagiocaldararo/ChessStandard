@@ -126,7 +126,7 @@ namespace ChessStandard.Model.Pieces
         {
             bool available = false;
 
-            var lastMove = board.History.GetLastMove();
+            var lastMove = board.History.GetPrevMove(1);
 
             if (lastMove != null && lastMove.Piece.GetType() == typeof(Pawn))
             {

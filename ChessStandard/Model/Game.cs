@@ -83,5 +83,11 @@ namespace ChessStandard.Model
 
             return result;
         }
+
+        public void UndoMove()
+        {
+            Board.UndoMove();
+            NextPlayerTurn();
+        }
     }
 }

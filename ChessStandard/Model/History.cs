@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessStandard.Model.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using static ChessStandard.Utils.Enums;
@@ -20,6 +21,13 @@ namespace ChessStandard.Model
         #endregion
 
         private List<Move> Moves;
+        public int MoveCount
+        {
+            get
+            {
+                return Moves.Count;
+            }
+        }
 
         private History()
         {
@@ -40,17 +48,38 @@ namespace ChessStandard.Model
             Moves.Add(move);
         }
 
-        public Move GetLastMove()
+        public Move GetPrevMove(int i)
         {
             Move lastMove = null;
+
             int count = Moves.Count;
 
             if (count > 0)
             {
-                lastMove = Moves[count - 1];
+                lastMove = Moves[count - i];
             }
 
             return lastMove;
+        }
+
+        public int MoveCountPiece(Piece piece)
+        {
+            int movements = 0;
+
+            foreach(var move in Moves)
+            {
+                if (piece.Id == move.Piece.Id)
+                {
+                    movements++;
+                }
+            }
+
+            return movements;
+        }
+
+        public void RemoveLastMove()
+        {
+            Moves.RemoveAt(Moves.Count - 1);
         }
     }
 }

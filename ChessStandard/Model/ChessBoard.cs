@@ -163,5 +163,15 @@ namespace ChessStandard.Model
 
             return square;
         }
+
+        public void UndoMove()
+        {
+            var lastMove = History.GetPrevMove(1);
+
+            var piece = lastMove.Piece;
+            piece.UndoMove(lastMove, History.MoveCountPiece(piece) > 1);
+
+            History.RemoveLastMove();
+        }
     }
 }
